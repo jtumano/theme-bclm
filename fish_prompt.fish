@@ -7,6 +7,11 @@ function _is_git_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
+function _prompt_pwd_length
+  set -U fish_prompt_pwd_dir_length 0
+  echo (string length (prompt_pwd))
+end
+
 function fish_prompt
   set -l last_status $status
   set -l cyan (set_color -o cyan)
@@ -21,7 +26,16 @@ function fish_prompt
   else
       set status_indicator "$red✗ "
   end
-  set -l cwd $cyan(basename (prompt_pwd))
+
+  set -l pwd-length (_prompt_pwd_length)
+
+  if math "$pwd-length > 50" > /dev/null
+      set -U fish_prompt_pwd_dir_length 1
+  else 
+      set -U fish_prompt_pwd_dir_length 1
+  end
+
+  set -l cwd $cyan(prompt_pwd)
 
   if [ (_git_branch_name) ]
 
