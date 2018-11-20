@@ -27,12 +27,12 @@ function fish_prompt
       set status_indicator "$red✗ "
   end
 
-  set -l pwd-length (_prompt_pwd_length)
+  set -l pwd_length (_prompt_pwd_length)
 
-  if math "$pwd-length > 50" > /dev/null
+  if math "$pwd_length > 50" > /dev/null
       set -U fish_prompt_pwd_dir_length 1
   else 
-      set -U fish_prompt_pwd_dir_length 1
+      set -U fish_prompt_pwd_dir_length 0
   end
 
   set -l cwd $cyan(prompt_pwd)
