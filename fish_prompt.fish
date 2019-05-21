@@ -29,7 +29,7 @@ function fish_prompt
 
   set -l pwd_length (_prompt_pwd_length)
 
-  if math "$pwd_length > 50" > /dev/null
+  if test $pwd_length -gt 50
       set -U fish_prompt_pwd_dir_length 1
   else 
       set -U fish_prompt_pwd_dir_length 0
